@@ -19,10 +19,15 @@ class TodoForm extends Component {
     }
     render () {
       return (
-        <form ref="form" onSubmit={this.onSubmit} className="form-inline">
-          <input type="text" ref="itemName" className="form-control" placeholder="add a new todo..."/>
-          <button type="submit" className="btn btn-default">Add</button> 
-        </form>
+        <div style={{margin: "3px"}}>
+          <form ref="form" onSubmit={this.onSubmit} className="form-inline" style={{margin: "3px"}}>
+            <input type="text" ref="itemName" className="form-control" placeholder="add a new todo..."/>
+            <button type="submit" className="btn btn-default">Add</button>
+          </form>
+          <div className="text-center">
+            <button type="button" onClick={this.props.addAsyncItem} className="btn btn-default">Add Async</button>
+          </div>
+        </div>
       );   
     }
   }
