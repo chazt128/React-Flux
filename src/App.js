@@ -9,6 +9,7 @@ import * as ToDoActions from './Actions/ToDoActions';
 class App extends Component {
   constructor (props) {
     super(props);
+    this.getToDos = this.getToDos.bind(this);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.markTodoDone = this.markTodoDone.bind(this);
@@ -16,9 +17,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    ToDoStore.on("change", () => {
-      this.setState({todoItems: ToDoStore.getToDos()});
-    });
+    ToDoStore.on("change", this.getToDos);
+    console.log("count", ToDoStore.listenerCount("change"));
+  }
+
+  componentWillUnmount() {
+    ToDoStore.removeListener("change", this.getToDos);
+  }
+
+  getToDos() {
+    this.setState({todoItems: ToDoStore.getToDos()});
   }
 
   addItem(todoItem) {
